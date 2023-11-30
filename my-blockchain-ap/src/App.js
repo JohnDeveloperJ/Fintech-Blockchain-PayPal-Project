@@ -1,43 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
-import contractInfo from './contractInfo.json';
+// src/App.js
+import React from 'react';
+import WalletConnectButton from './components/WalletConnectButton';
+import DepositForm from './components/DepositForm';
+import WithdrawForm from './components/WithdrawForm';
 
-const MyContractComponent = () => {
-    const [provider, setProvider] = useState(null);
-    const [signer, setSigner] = useState(null);
-    const [contract, setContract] = useState(null);
+function App() {
+  return (
+    <div className="App">
+      <h1>Blockchain Interaction Example</h1>
+      <WalletConnectButton />
+      <DepositForm />
+      <WithdrawForm />
+    </div>
+  );
+}
 
-    useEffect(() => {
-        const init = async () => {
-            if (window.ethereum) {
-                try {
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const provider = new ethers.providers.Web3Provider(window.ethereum);
-                    const signer = provider.getSigner();
-                    const contract = new ethers.Contract(contractInfo.address, contractInfo.abi, signer);
-
-                    setProvider(provider);
-                    setSigner(signer);
-                    setContract(contract);
-                } catch (error) {
-                    console.error(error);
-                }
-            } else {
-                console.log('Ethereum object not found, install MetaMask.');
-            }
-        };
-
-        init();
-    }, []);
-
-    // Add functions to interact with the contract here
-
-    return (
-        <div>
-            <h1>My Blockchain App</h1>
-            {/* UI components to interact with the contract */}
-        </div>
-    );
-};
-
-export default MyContractComponent;
+export default App;

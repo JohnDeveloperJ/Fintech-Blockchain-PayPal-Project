@@ -12,11 +12,11 @@ export const getProvider = () => {
   return null;
 };
 
-export const getContract = (contractAddress, contractABI) => {
+export const getContract = (address, abi) => {
   const provider = getProvider();
   if (provider) {
     const signer = provider.getSigner();
-    return new ethers.Contract(contractAddress, contractABI, signer);
+    return new ethers.Contract(address, abi, signer);
   }
   return null;
 };
