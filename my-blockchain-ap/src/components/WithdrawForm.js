@@ -1,4 +1,4 @@
-// src/components/WithdrawForm.jsx
+// src/components/WithdrawForm.js
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import { getContract } from '../ethereum';
@@ -12,8 +12,9 @@ const WithdrawForm = () => {
     const contract = getContract(contractInfo.address, contractInfo.abi);
     if (contract) {
       try {
-        // Assuming the withdraw function in your contract takes the amount in wei
-        const transaction = await contract.withdraw(ethers.utils.parseEther(amount));
+        // Convert the amount to wei
+        const amountInWei = ethers.utils.parseEther(amount.toString());
+        const transaction = await contract.withdraw(amountInWei);
         await transaction.wait();
         alert("Withdrawal successful!");
       } catch (error) {
